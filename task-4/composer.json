@@ -1,0 +1,15 @@
+{
+    "name": "awuah/task-4",
+    "autoload": {
+        "psr-4": {
+            "Awuah\\Task4\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Awuah Duodu Joseph",
+            "email": "awuahduodujoseph@gmail.com"
+        }
+    ],
+    "require": {}
+}
