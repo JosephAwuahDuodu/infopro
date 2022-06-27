@@ -18,9 +18,8 @@ class DBQueries {
         try {
             $dBConn = new DBConn();
             $conn = $dBConn->get_db_connection();
-            $perform_insert =$conn->query($stmt) or die($conn->error);
-    
-            return true;
+            
+            return $conn->query($stmt) or die($conn->error);
         } catch (\Throwable $th) {
             return false;
         }
