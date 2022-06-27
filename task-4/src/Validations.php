@@ -14,7 +14,6 @@ class Validations {
         if (preg_match("#.*^(?=.{8,20})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*W).*$#", $password )){
             return true;
         } else {
-            $this->err_message['password'] = "Password must meet this standard: Include Number, Uppercase, Lowercase letter and greater than 8 characters.";
             return false;
         }
     }

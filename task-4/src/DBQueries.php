@@ -10,32 +10,24 @@ class DBQueries {
         $this->password = $password;
     }
 
-    public function insert_into_db()
-    {
-        $encrypted_password = $this->password; // add a hashing algorithm / salt here
-        $stmt = "INSERT INTO users (`email`, `password`) VALUES ($this->email, $encrypted_password)";
-
-        try {
-            $dBConn = new DBConn();
-            $conn = $dBConn->get_db_connection();
-            
-            return $conn->query($stmt) or die($conn->error);
-        } catch (\Throwable $th) {
-            return false;
-        }
-
-    }
-
     public function check_user_existence(): bool
     {
         $encrypt_password = $this->password;
 
         $dBConn = new DBConn();
         $conn = $dBConn->get_db_connection();
-        $find_user =$conn->query("SELECT * FROM users WHERE email = '".$this->email."' AND password = '".$encrypt_password."'");  
-        $user_data = $find_user->fetch_assoc();  
+        $find_user =$conn->query("SELECT * FROM users WHERE email = '".$this->email."' AND password = '".$encrypt_password."' LIMIT ! ");  
+
+        if ($find_user->num_rows > 0) {
+            $user_data = $find_user->fetch_assoc();  
+
+            $authorize = new Auth;
+            $authorize->allow_user_access($user_data);
+        } else {
+            return false;
+        }
         
-        return $find_user->num_rows ? true : false;
+        
     }
 
 
